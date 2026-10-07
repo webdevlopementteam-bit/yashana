@@ -58,8 +58,7 @@ const PRODUCTS = [
 const STATS = [
   { value: 200, suffix: "+", label: "Regular clients", icon: "users" },
   { value: 430, suffix: "+", label: "Cities across India", icon: "pin" },
-  { value: 500, suffix: "+", unit: "MT", label: "Production capacity", icon: "gear" },
-  { value: 100, suffix: "+", label: "Polymer grades", icon: "box" },
+  { value: 3000, suffix: "+", unit: "MT", label: "Production capacity", icon: "gear" },
 ];
 
 const COMPARE = [
@@ -146,30 +145,9 @@ function Icon({ name, className = "h-6 w-6" }) {
 
 /* ------------------------------ Logo ------------------------------- */
 
-function Logo({ light = false, className = "h-11 w-auto" }) {
-  const ink = light ? "#FFFFFF" : "#161C6E";
-  return (
-    <svg viewBox="0 0 130 80" className={className} aria-label="Yashana Polymers logo">
-      <path d="M10 44c8 16 40 24 70 20" fill="none" stroke={ink} strokeWidth="5" strokeLinecap="round" />
-      <path d="M17 39c7 11 32 17 56 15" fill="none" stroke={ink} strokeWidth="3.6" strokeLinecap="round" />
-      <path d="M25 34c6 7 22 11 40 10" fill="none" stroke={ink} strokeWidth="2.6" strokeLinecap="round" />
-      <path d="M84 30c24 2 38 14 26 34" fill="none" stroke="#00B3DF" strokeWidth="7" strokeLinecap="round" />
-      <path d="M33 16l1.6 4.4L39 22l-4.4 1.6L33 28l-1.6-4.4L27 22l4.4-1.6Z" fill={ink} />
-      <text x="42" y="46" fontSize="44" fontWeight="900" fontStyle="italic" fill={ink} fontFamily="Arial Black, Arial, sans-serif" letterSpacing="-3">
-        YP
-      </text>
-    </svg>
-  );
-}
-
-function Wordmark({ light = false }) {
-  return (
-    <div className="leading-none">
-      <div className={`${display} text-xl font-extrabold italic tracking-wide ${light ? "text-white" : "text-[#161C6E]"}`}>
-        YASHANA <span className="font-semibold text-[#00B3DF]">POLYMERS</span>
-      </div>
-    </div>
-  );
+// public/logo.jpg (mark + "YASHANA POLYMERS" wordmark, on a white background)
+function Logo({ className = "h-20 w-auto" }) {
+  return <img src="/logo.jpg" width="256" height="150" alt="Yashana Polymers" className={className} />;
 }
 
 /* ---------------------------- Helpers ----------------------------- */
@@ -222,7 +200,7 @@ function Navbar() {
   }, []);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 bg-white transition-shadow duration-300 ${scrolled ? "shadow-lg shadow-[#161C6E]/10" : "border-b border-slate-100"}`}>
+    <header className={`sticky top-0 z-50 bg-white transition-shadow duration-300 ${scrolled ? "shadow-lg shadow-[#161C6E]/10" : "border-b border-slate-100"}`}>
       {/* Top bar */}
       <div className="bg-[#0E1352] text-xs text-white/80">
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -249,16 +227,15 @@ function Navbar() {
         </div>
       </div>
 
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <a href="#top" className="flex items-center gap-2">
-          <Logo className="h-10 w-auto" />
-          <Wordmark />
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1 sm:px-6 lg:px-8">
+        <a href="#top" className="flex items-center">
+          <Logo className="h-[80px] w-auto" />
         </a>
 
         <ul className="hidden items-center gap-8 lg:flex">
           {NAV.map((n) => (
             <li key={n.href}>
-              <a href={n.href} className="text-sm font-medium text-slate-700 transition hover:text-[#00B3DF]">
+              <a href={n.href} className=" font-medium text-slate-700 transition hover:text-[#00B3DF]">
                 {n.label}
               </a>
             </li>
@@ -296,13 +273,13 @@ function Navbar() {
 /* 2. Hero — full-width banner (separate art for mobile & desktop) */
 function Hero() {
   return (
-    <section id="top" className="relative bg-white pt-[100px]">
+    <section id="top" className="relative bg-white">
       <h1 className="sr-only">Yashana Polymers — High performance PC, ABS and PBT polymer granules manufacturer</h1>
       <div className="relative">
         <picture>
-          <source media="(min-width: 768px)" srcSet="/desktopbanner.png" width="1942" height="809" />
+          <source media="(min-width: 768px)" srcSet="/desktop-banner.png" width="1942" height="809" />
           <img
-            src="/mobilebanner.png"
+            src="/mobile-banner.png"
             width="1122"
             height="1402"
             alt="Yashana Polymers 25 kg bags of PC, ABS and PBT granules — premium quality, consistent supply, industrial grade, wide range of applications"
@@ -385,13 +362,13 @@ function Stats() {
         <div className="absolute -left-32 top-0 h-72 w-72 rounded-full bg-[#00B3DF]/10 blur-[100px]" />
         <div className="absolute -right-32 bottom-0 h-72 w-72 rounded-full bg-[#00A896]/10 blur-[100px]" />
       </div>
-      <div className="relative mx-auto grid max-w-7xl grid-cols-2 gap-x-3 gap-y-8 px-4 sm:gap-y-12 sm:px-6 lg:grid-cols-4 lg:px-8">
+      <div className="relative mx-auto grid max-w-5xl grid-cols-3 px-2 sm:px-6 lg:px-8">
         {STATS.map((s, i) => (
-          <div key={s.label} className={`flex flex-col items-center text-center sm:px-4 ${i > 0 ? "lg:border-l lg:border-slate-200" : ""}`}>
+          <div key={s.label} className={`flex flex-col items-center px-1 text-center sm:px-4 ${i > 0 ? "border-l border-slate-200" : ""}`}>
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#00A896] to-[#00B3DF] text-white shadow-lg shadow-[#00B3DF]/30 sm:h-12 sm:w-12">
               <Icon name={s.icon} className="h-5 w-5 sm:h-6 sm:w-6" />
             </span>
-            <p className={`${display} mt-3 flex items-start justify-center whitespace-nowrap text-4xl font-bold leading-none text-[#161C6E] sm:mt-4 sm:text-6xl`}>
+            <p className={`${display} mt-3 flex items-start justify-center whitespace-nowrap text-3xl font-bold leading-none text-[#161C6E] sm:mt-4 sm:text-6xl`}>
               <Counter value={s.value} suffix={s.suffix} />
               {s.unit && (
                 <span className="ml-1 rounded-md bg-[#00A896]/10 px-1.5 py-0.5 font-[family-name:var(--font-body)] text-[10px] font-bold uppercase tracking-wider text-[#00A896] sm:ml-1.5 sm:text-xs">
@@ -657,10 +634,206 @@ function Compare() {
   );
 }
 
+/* 6b. Thermal properties — temperature probe across heat lanes */
+const T_MAX = 350;
+
+const THERMAL = [
+  { code: "PC", type: "Amorphous", tg: 147, tm: null, cut: 125, proc: [280, 320], note: "Holds shape close to its Tg — the heat champion of the amorphous pair." },
+  { code: "ABS", type: "Amorphous", tg: 105, tm: null, cut: 80, proc: [220, 260], note: "Easy, low-temperature moulding — best kept below ~80 °C in service." },
+  { code: "PBT", type: "Semi-crystalline", tg: 50, tm: 225, cut: 140, proc: [240, 270], note: "Crystals keep it rigid well above Tg, with a sharp melt at 225 °C." },
+];
+
+const THERMAL_METRICS = [
+  { title: "Heat deflection", sub: "HDT @ 1.8 MPa", unit: "°C", better: "high", vals: { PC: 130, ABS: 95, PBT: 60 }, foot: "PBT rises past 200 °C with glass-fibre grades" },
+  { title: "Vicat softening", sub: "VST/B50", unit: "°C", better: "high", vals: { PC: 145, ABS: 100, PBT: 180 } },
+  { title: "Thermal expansion", sub: "CTE · ×10⁻⁶/K", unit: "", better: "low", vals: { PC: 68, ABS: 90, PBT: 100 }, foot: "Lower means better dimensional stability" },
+  { title: "Pre-drying", sub: "Before moulding", unit: "°C", better: "none", vals: { PC: 120, ABS: 80, PBT: 120 }, foot: "Typically 2–4 h in a desiccant dryer" },
+];
+
+const PRESETS = [
+  { t: 25, label: "Room" },
+  { t: 85, label: "Hot car cabin" },
+  { t: 100, label: "Boiling water" },
+  { t: 130, label: "Under-hood" },
+  { t: 250, label: "Moulding" },
+];
+
+function thermalState(t, d) {
+  // color = dot/tint, ink = readable text on white
+  if (t <= d.cut) return { label: "Service-ready", color: "#10B981", ink: "#047857" };
+  if (t < (d.tm ?? d.tg)) return { label: "Beyond rated use", color: "#F59E0B", ink: "#B45309" };
+  if (t < d.proc[0]) return { label: d.tm ? "Melted" : "Softened", color: "#F97316", ink: "#C2410C" };
+  if (t <= d.proc[1]) return { label: "Moulding window", color: "#0EA5E9", ink: "#0369A1" };
+  return { label: "Degradation risk", color: "#F43F5E", ink: "#BE123C" };
+}
+
+// cold cyan → hot red, for the probe readout
+const heatColor = (t) => `hsl(${Math.round(195 - Math.min(t / 300, 1) * 195)} 85% 45%)`;
+const pct = (t) => `${(t / T_MAX) * 100}%`;
+
+function Thermal() {
+  const [temp, setTemp] = useState(100);
+
+  return (
+    <section id="thermal" className="relative overflow-hidden bg-slate-50 py-18 lg:py-24">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-40 top-0 h-[28rem] w-[28rem] rounded-full bg-[#00B3DF]/10 blur-[120px]" />
+        <div className="absolute -right-40 bottom-0 h-[28rem] w-[28rem] rounded-full blur-[140px] transition-colors duration-500" style={{ background: heatColor(temp), opacity: 0.1 }} />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Heading tag="Heat Behaviour" title="Thermal properties of polymers" sub="Drag the probe to any temperature and watch how PC, ABS and PBT respond — from everyday service to the moulding barrel." />
+
+        <Reveal className="mt-16 rounded-[2rem] bg-white p-5 shadow-[0_8px_32px_-12px_rgba(22,28,110,0.15)] ring-1 ring-slate-200/80 sm:p-8 lg:p-10">
+          {/* probe readout + presets */}
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Probe temperature</p>
+              <p className={`${display} mt-1 text-6xl font-bold leading-none tabular-nums transition-colors duration-300 sm:text-7xl`} style={{ color: heatColor(temp) }}>
+                {temp}
+                <span className="ml-1 text-3xl text-slate-400 sm:text-4xl">°C</span>
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {PRESETS.map((p) => (
+                <button
+                  key={p.t}
+                  type="button"
+                  onClick={() => setTemp(p.t)}
+                  className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${temp === p.t ? "bg-[#161C6E] text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
+                >
+                  {p.label} · {p.t}°
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* slider + axis */}
+          <div className="mt-8">
+            <input
+              type="range"
+              min="0"
+              max={T_MAX}
+              value={temp}
+              onChange={(e) => setTemp(Number(e.target.value))}
+              aria-label="Probe temperature in degrees Celsius"
+              className="thermo-range w-full"
+            />
+            {/* px-3 = half the thumb width, so 0° and 350° line up with the thumb centre */}
+            <div className="px-3">
+              <div className="relative mt-2 h-4 text-[10px] font-semibold text-slate-400 sm:text-xs">
+                {[0, 50, 100, 150, 200, 250, 300, 350].map((t) => (
+                  <span key={t} className="absolute -translate-x-1/2" style={{ left: pct(t) }}>
+                    {t}°
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* heat lanes */}
+          <div className="px-3">
+          <div className="relative mt-8 space-y-8">
+            <span className="pointer-events-none absolute -bottom-2 -top-2 z-10 w-0.5 -translate-x-1/2 rounded-full transition-[left] duration-150" style={{ left: pct(temp), background: heatColor(temp), boxShadow: `0 0 10px ${heatColor(temp)}` }} />
+
+            {THERMAL.map((d) => {
+              const st = thermalState(temp, d);
+              const c = POLY_COLORS[d.code];
+              return (
+                <div key={d.code}>
+                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                    <p className="flex items-baseline gap-3">
+                      <span className={`${display} text-3xl font-bold leading-none`} style={{ color: c }}>{d.code}</span>
+                      <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">{d.type}</span>
+                    </p>
+                    <span className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ring-1 transition-colors duration-300" style={{ color: st.ink, background: `${st.color}14`, "--tw-ring-color": `${st.color}55` }}>
+                      <span className="h-2 w-2 rounded-full" style={{ background: st.color }} />
+                      {st.label}
+                    </span>
+                  </div>
+
+                  {/* markers above track */}
+                  <div className="relative mt-3 h-5 text-[10px] font-bold uppercase tracking-wider text-[#161C6E] sm:text-xs">
+                    <span className="absolute -translate-x-1/2 whitespace-nowrap" style={{ left: pct(d.tg) }}>Tg {d.tg}°</span>
+                    {d.tm && <span className="absolute -translate-x-1/2 whitespace-nowrap text-[#C2410C]" style={{ left: pct(d.tm) }}>Tm {d.tm}°</span>}
+                  </div>
+
+                  {/* track */}
+                  <div className="relative h-4 rounded-full bg-slate-100 ring-1 ring-slate-200">
+                    <span className="absolute inset-y-0 left-0 rounded-full" style={{ width: pct(d.cut), background: `linear-gradient(90deg, ${c}55, ${c})` }} />
+                    <span className="thermo-hatch absolute inset-y-0 rounded-full" style={{ left: pct(d.proc[0]), width: pct(d.proc[1] - d.proc[0]) }} />
+                    <span className="absolute inset-y-0 right-0 rounded-r-full bg-gradient-to-r from-transparent to-[#F43F5E]/30" style={{ left: pct(d.proc[1]) }} />
+                    <span className="absolute -inset-y-1 w-0.5 -translate-x-1/2 bg-[#161C6E]" style={{ left: pct(d.tg) }} />
+                    {d.tm && <span className="absolute -inset-y-1 w-0.5 -translate-x-1/2 bg-[#F97316]" style={{ left: pct(d.tm) }} />}
+                  </div>
+
+                  {/* markers below track */}
+                  <div className="relative mt-2 h-5 text-[10px] font-semibold text-slate-500 sm:text-xs">
+                    <span className="absolute -translate-x-full whitespace-nowrap pr-1" style={{ left: pct(d.cut) }}>max use {d.cut}°</span>
+                    <span className="absolute -translate-x-1/2 whitespace-nowrap text-[#0369A1]" style={{ left: pct((d.proc[0] + d.proc[1]) / 2) }}>{d.proc[0]}–{d.proc[1]}°</span>
+                  </div>
+                  <p className="mt-1 text-sm text-slate-500">{d.note}</p>
+                </div>
+              );
+            })}
+          </div>
+          </div>
+
+          {/* legend */}
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-slate-100 pt-6 text-xs font-medium text-slate-500">
+            <span className="inline-flex items-center gap-2"><span className="h-2.5 w-6 rounded-full bg-gradient-to-r from-slate-200 to-slate-500" />Continuous service range</span>
+            <span className="inline-flex items-center gap-2"><span className="thermo-hatch h-2.5 w-6 rounded-full" />Melt / moulding window</span>
+            <span className="inline-flex items-center gap-2"><span className="h-3 w-0.5 bg-[#161C6E]" />Glass transition (Tg)</span>
+            <span className="inline-flex items-center gap-2"><span className="h-3 w-0.5 bg-[#F97316]" />Crystalline melt (Tm)</span>
+          </div>
+        </Reveal>
+
+        {/* thermal fingerprint cards */}
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {THERMAL_METRICS.map((m, i) => {
+            const max = Math.max(...Object.values(m.vals));
+            const vals = Object.values(m.vals);
+            const best = m.better === "high" ? Math.max(...vals) : m.better === "low" ? Math.min(...vals) : null;
+            return (
+              <Reveal key={m.title} delay={i * 80} className="flex flex-col rounded-3xl bg-white p-6 shadow-[0_8px_24px_-12px_rgba(22,28,110,0.12)] ring-1 ring-slate-200/80">
+                <p className={`${display} text-2xl font-bold uppercase leading-none text-[#161C6E]`}>{m.title}</p>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-slate-400">{m.sub}</p>
+                <div className="mt-6 space-y-4">
+                  {THERMAL.map((d) => {
+                    const v = m.vals[d.code];
+                    const c = POLY_COLORS[d.code];
+                    return (
+                      <div key={d.code} className="flex items-center gap-3">
+                        <span className={`${display} w-9 text-lg font-bold`} style={{ color: c }}>{d.code}</span>
+                        <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-100">
+                          <div className="thermo-bar h-full rounded-full" style={{ width: `${(v / max) * 100}%`, background: `linear-gradient(90deg, ${c}66, ${c})` }} />
+                        </div>
+                        <span className={`w-14 text-right text-sm font-bold tabular-nums ${v === best ? "text-[#161C6E]" : "text-slate-500"}`}>
+                          {v}{m.unit && <span className="text-xs font-semibold">{m.unit}</span>}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+                {m.foot && <p className="mt-auto pt-5 text-xs leading-relaxed text-slate-400">{m.foot}</p>}
+              </Reveal>
+            );
+          })}
+        </div>
+
+        <p className="mt-8 text-center text-sm text-slate-400">
+          Typical values for unfilled, general-purpose grades — exact figures vary by grade.{" "}
+          <a href="#contact" className="font-semibold text-[#00A896] hover:underline">Request a grade-specific TDS →</a>
+        </p>
+      </div>
+    </section>
+  );
+}
+
 /* 7. Industries */
 function Industries() {
   return (
-    <section id="industries" className="relative overflow-hidden bg-white py-18">
+    <section id="industries" className="relative overflow-hidden bg-white py-20">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Heading tag="Industries We Serve" title="Powering the parts behind everyday life" sub="Our materials find their way into products across India's fastest-growing manufacturing sectors." />
 
@@ -929,9 +1102,8 @@ function WhyUs() {
         {/* comparison */}
         <Reveal className={`${card} mt-6 overflow-hidden`}>
           <div className="grid grid-cols-2 border-b border-slate-100">
-            <p className="flex items-center gap-2 px-5 py-5 sm:px-8">
-              <Logo className="h-7 w-auto" />
-              <span className={`${display} text-xl font-bold uppercase text-[#161C6E]`}>Yashana</span>
+            <p className="flex items-center px-5 py-3 sm:px-8">
+              <Logo className="h-10 w-auto sm:h-12" />
             </p>
             <p className={`${display} border-l border-slate-100 px-5 py-5 text-xl font-bold uppercase text-slate-400 sm:px-8`}>The usual way</p>
           </div>
@@ -1036,7 +1208,7 @@ function Contact() {
   const input = "w-full rounded-xl border-0 bg-slate-50 px-4 py-3.5 text-slate-800 ring-1 ring-slate-200 transition placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#00B3DF]";
 
   const contacts = [
-    { icon: "phone", label: "Mobile", lines: [{ t: "+91 92179 58610", h: "tel:+919217958610" }, { t: "+91 98917 93980", h: "tel:+919891793980" }] },
+    { icon: "phone", label: "Mobile", lines: [{ t: "+91 92179 58610", h: "tel:+919217958610" }] },
     { icon: "mail", label: "Email", lines: [{ t: "Yashanapolymers1326@gmail.com", h: "mailto:Yashanapolymers1326@gmail.com" }] },
     { icon: "globe", label: "Website", lines: [{ t: "www.yashanapolymers.com", h: "https://www.yashanapolymers.com" }] },
     { icon: "pin", label: "Location", lines: [{ t: "Delhi, India" }] },
@@ -1112,9 +1284,9 @@ function Footer() {
     <footer className="bg-[#080B36] pt-16 text-white/60">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 pb-12 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2">
-            <Logo light className="h-12 w-auto" />
-            <Wordmark light />
+          {/* white card so the JPG's white background sits cleanly on the dark footer */}
+          <div className="inline-flex rounded-2xl bg-white px-4 py-2">
+            <Logo className="h-14 w-auto" />
           </div>
           <p className="mt-5 max-w-md leading-relaxed">
             Manufacturer and supplier of premium PC, ABS and PBT engineering polymers. Sustainable · Innovative · Reliable · Responsible.
@@ -1137,7 +1309,6 @@ function Footer() {
           <p className="font-semibold uppercase tracking-widest text-white">Contact</p>
           <ul className="mt-5 space-y-3">
             <li><a href="tel:+919217958610" className="hover:text-[#7FE3F7]">+91 92179 58610</a></li>
-            <li><a href="tel:+919891793980" className="hover:text-[#7FE3F7]">+91 98917 93980</a></li>
             <li><a href="mailto:Yashanapolymers1326@gmail.com" className="break-all hover:text-[#7FE3F7]">Yashanapolymers1326@gmail.com</a></li>
             <li>Delhi, India</li>
           </ul>
@@ -1166,14 +1337,22 @@ export default function Home() {
     return () => io.disconnect();
   }, []);
 
+  // overflow-x-clip (not hidden) so the sticky header keeps working
   return (
-    <main className="overflow-x-hidden bg-white text-slate-800">
+    <main className="overflow-x-clip bg-white text-slate-800">
       <style>{`
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; scroll-padding-top: 144px; }
         .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
         .reveal.in { opacity: 1; transform: none; }
         .radar-shapes { transform: scale(0); transform-origin: 220px 210px; transition: transform 1.1s cubic-bezier(.2,.8,.2,1) .2s; }
         .radar.in .radar-shapes { transform: none; }
+        .thermo-range { -webkit-appearance: none; appearance: none; height: 10px; border-radius: 999px; background: linear-gradient(90deg, #38BDF8, #34D399 30%, #FBBF24 50%, #FB923C 70%, #F43F5E); cursor: pointer; }
+        .thermo-range::-webkit-slider-thumb { -webkit-appearance: none; height: 24px; width: 24px; border-radius: 999px; background: #fff; border: 4px solid #161C6E; box-shadow: 0 4px 12px rgba(22,28,110,.3); }
+        .thermo-range::-moz-range-thumb { height: 16px; width: 16px; border-radius: 999px; background: #fff; border: 4px solid #161C6E; box-shadow: 0 4px 12px rgba(22,28,110,.3); }
+        .thermo-range:focus-visible { outline: 2px solid #00B3DF; outline-offset: 6px; }
+        .thermo-hatch { background: repeating-linear-gradient(135deg, #38BDF8 0 4px, rgba(56,189,248,.25) 4px 8px); }
+        .thermo-bar { transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(.2,.8,.2,1) .3s; }
+        .reveal.in .thermo-bar { transform: none; }
         .step-outline { color: transparent; -webkit-text-stroke: 1px rgba(22,28,110,.08); }
         .pipe-flow { background: repeating-linear-gradient(90deg, #00B3DF 0 14px, transparent 14px 28px); animation: pipe 1.2s linear infinite; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
         .pipe-flow-v { background: repeating-linear-gradient(180deg, #00B3DF 0 10px, transparent 10px 20px); animation: pipev 1s linear infinite; }
@@ -1191,7 +1370,7 @@ export default function Home() {
         .grid-bg { background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 48px 48px; }
         @media (prefers-reduced-motion: reduce) {
           .reveal { opacity: 1; transform: none; }
-          .radar-shapes { transform: none; }
+          .radar-shapes, .thermo-bar { transform: none; }
           .float, .pellet, .marquee, .pipe-flow, .pipe-flow-v, .pipe-pellet { animation: none; }
         }
       `}</style>
@@ -1203,6 +1382,7 @@ export default function Home() {
       <Products />
       <About />
       <Compare />
+      <Thermal />
       <Industries />
       <Values />
       <Quality />

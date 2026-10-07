@@ -13,6 +13,9 @@ export const metadata = {
   title: "Yashana Polymers | PC, ABS & PBT Engineering Polymers — Delhi, India",
   description:
     "Yashana Polymers manufactures and supplies premium PC, ABS and PBT engineering polymers. ISO 9001 & 14001 certified, RoHS compliant, batch-coded 25 kg packing.",
+    icons:{
+      icon:"/logo.jpg"
+    }
 };
 
 export default function RootLayout({ children }) {
