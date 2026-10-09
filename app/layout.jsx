@@ -1,4 +1,4 @@
-import { Outfit, Barlow_Condensed } from "next/font/google";
+import { Outfit, Barlow_Condensed, Roboto } from "next/font/google";
 import "./globals.css";
 
 const body = Outfit({ subsets: ["latin"], variable: "--font-body" });
@@ -8,6 +8,8 @@ const display = Barlow_Condensed({
   style: ["normal", "italic"],
   variable: "--font-display",
 });
+// heavy italic used for the "YASHANA POLYMERS" wordmark next to the logo mark
+const brand = Roboto({ subsets: ["latin"], weight: ["900"], style: ["italic"], variable: "--font-brand" });
 
 export const metadata = {
   title: "Yashana Polymers | PC, ABS & PBT Engineering Polymers — Delhi, India",
@@ -20,7 +22,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${body.variable} ${display.variable}`}>
+    <html lang="en" className={`${body.variable} ${display.variable} ${brand.variable}`}>
       <body className="font-[family-name:var(--font-body)] antialiased">{children}</body>
     </html>
   );

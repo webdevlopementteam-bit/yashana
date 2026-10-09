@@ -13,12 +13,12 @@ import { useEffect, useRef, useState } from "react";
 const display = "font-[family-name:var(--font-display)]";
 
 const NAV = [
+  { label: "PC Dana", href: "#pc-dana" },
   { label: "Products", href: "#products" },
   { label: "About", href: "#about" },
   { label: "Industries", href: "#industries" },
   { label: "Quality", href: "#quality" },
   { label: "Process", href: "#process" },
-  { label: "FAQ", href: "#faq" },
 ];
 
 const PRODUCTS = [
@@ -55,20 +55,11 @@ const PRODUCTS = [
 ];
 
 // Counter stats below the hero
+// each stat gets its own colour, echoing the blue / yellow / red granules in the hero
 const STATS = [
-  { value: 200, suffix: "+", label: "Regular clients", icon: "users" },
-  { value: 430, suffix: "+", label: "Cities across India", icon: "pin" },
-  { value: 3000, suffix: "+", unit: "MT", label: "Production capacity", icon: "gear" },
-];
-
-const COMPARE = [
-  { prop: "Impact strength", PC: 5, ABS: 4, PBT: 3 },
-  { prop: "Transparency", PC: 5, ABS: 1, PBT: 1 },
-  { prop: "Heat resistance", PC: 4, ABS: 3, PBT: 4 },
-  { prop: "Chemical resistance", PC: 2, ABS: 3, PBT: 5 },
-  { prop: "Electrical insulation", PC: 4, ABS: 3, PBT: 5 },
-  { prop: "Surface finish", PC: 4, ABS: 5, PBT: 4 },
-  { prop: "Ease of processing", PC: 3, ABS: 5, PBT: 4 },
+  { value: 200, suffix: "+", label: "Regular clients", desc: "Moulders & OEMs who keep coming back", icon: "users", from: "#2563EB", to: "#00B3DF" },
+  { value: 430, suffix: "+", label: "Cities across India", desc: "Supplied from our Delhi plant", icon: "pin", from: "#F59E0B", to: "#F97316" },
+  { value: 3000, suffix: "+", unit: "MT", label: "Production capacity", desc: "Ready for bulk & repeat orders", icon: "gear", from: "#F43F5E", to: "#C026D3" },
 ];
 
 const INDUSTRIES = [
@@ -80,19 +71,11 @@ const INDUSTRIES = [
   { name: "Industrial & Packaging", icon: "box", from: "#34D399", to: "#047857", text: "Durable parts, fixtures and engineered components." },
 ];
 
-const VALUES = [
-  { title: "Sustainable", icon: "leaf", text: "Responsible material practices backed by our ISO 14001:2015 environmental management certification." },
-  { title: "Innovative", icon: "bulb", text: "Grades and colour solutions developed around what your moulding line actually needs." },
-  { title: "Reliable", icon: "shield", text: "Consistent quality, batch after batch — with every bag coded for full traceability." },
-  { title: "Responsible", icon: "gear", text: "RoHS-compliant materials and transparent dealings with every customer and partner." },
-];
-
 const CERTS = [
-  { title: "ISO 9001:2015", sub: "Quality Management System" },
-  { title: "ISO 14001:2015", sub: "Environmental Management System" },
-  { title: "RoHS Compliant", sub: "Restriction of Hazardous Substances" },
-  { title: "Fire Retardant", sub: "FR grades available on request" },
-  { title: "Make in India", sub: "Proudly manufactured in Delhi" },
+  { title: "ISO 9001:2015", sub: "Quality Management", img: "/certs/iso-9001.png" },
+  { title: "ISO 14001:2015", sub: "Environmental Management", img: "/certs/iso-14001.png" },
+  { title: "MSME Registered", sub: "Govt. of India registered", img: "/certs/msme.png" },
+  { title: "RoHS Compliant", sub: "Hazardous-substance free", img: "/certs/rohs.png" },
 ];
 
 const STEPS = [
@@ -101,15 +84,6 @@ const STEPS = [
   { n: "03", icon: "shield", title: "Quality check", text: "Each lot is checked before packing so your line runs without surprises." },
   { n: "04", icon: "box", title: "Packed & coded", text: "Sealed 25 kg bags marked with grade, batch number and colour code." },
   { n: "05", icon: "truck", title: "On-time dispatch", text: "Prompt delivery from Delhi to manufacturers across India." },
-];
-
-const FAQS = [
-  { q: "Which materials do you supply?", a: "We specialise in three engineering polymers — PC (Polycarbonate), ABS and PBT — in a range of grades and colours." },
-  { q: "How is the material packed?", a: "Material is supplied in sealed 25 kg bags. Every bag carries the grade, batch number and colour code so you can trace each lot." },
-  { q: "Can you match a specific colour?", a: "Yes. Share your colour code or a reference sample and our team will work with you on a matching solution." },
-  { q: "Do you offer fire-retardant grades?", a: "FR grades are available on request. Tell us your application and required rating and we'll confirm availability." },
-  { q: "Can I get technical data before ordering?", a: "Absolutely. Share the grade you're interested in and we'll provide the relevant technical details and guidance." },
-  { q: "How do I place an order or ask for a quote?", a: "Call us, email us or use the enquiry form on this page — we usually respond within one working day." },
 ];
 
 /* ------------------------------ Icons ------------------------------ */
@@ -137,6 +111,7 @@ function Icon({ name, className = "h-6 w-6" }) {
     plus: <path {...p} d="M12 5v14M5 12h14" />,
     menu: <path {...p} d="M4 7h16M4 12h16M4 17h16" />,
     close: <path {...p} d="M6 6l12 12M18 6 6 18" />,
+    whatsapp: <path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z" />,
     award: <g {...p}><circle cx="12" cy="9" r="6" /><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7" /></g>,
     tag: <g {...p}><path d="M3 12V4h8l10 10-8 8L3 12Z" /><circle cx="7.5" cy="8.5" r="1.5" /></g>,
   };
@@ -145,9 +120,19 @@ function Icon({ name, className = "h-6 w-6" }) {
 
 /* ------------------------------ Logo ------------------------------- */
 
-// public/logo.jpg (mark + "YASHANA POLYMERS" wordmark, on a white background)
-function Logo({ className = "h-20 w-auto" }) {
-  return <img src="/logo.jpg" width="256" height="150" alt="Yashana Polymers" className={className} />;
+// public/logo.jpg is the "YP" mark (white background); the wordmark is rendered as text beside it
+function Logo({ className = "h-20 w-auto", textClassName = "text-2xl" }) {
+  return (
+    <span className="inline-flex items-center gap-1">
+      {/* aspect + object-cover trims the JPG's side padding so the mark sits close to the text */}
+      <img src="/logo.jpg" width="255" height="90" alt="" className={`aspect-[142/90] object-cover ${className}`} />
+      <span className={`whitespace-nowrap font-[family-name:var(--font-brand)] font-black italic leading-none tracking-tight ${textClassName}`}>
+        <span className="text-[#13318C]">YASHANA</span>{" "}
+        <span className="text-[#2E7D32]">POLYMERS</span>
+        <sup className="ml-0.5 align-super text-[0.4em] not-italic text-[#13318C]">TM</sup>
+      </span>
+    </span>
+  );
 }
 
 /* ---------------------------- Helpers ----------------------------- */
@@ -205,9 +190,9 @@ function Navbar() {
       <div className="bg-[#0E1352] text-xs text-white/80">
         <div className="mx-auto flex h-9 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-5">
-            <a href="tel:+919217958610" className="inline-flex items-center gap-1.5 transition hover:text-[#7FE3F7]">
+            <a href="tel:+919217960445" className="inline-flex items-center gap-1.5 transition hover:text-[#7FE3F7]">
               <Icon name="phone" className="h-3.5 w-3.5 text-[#00B3DF]" />
-              +91 92179 58610
+              +91 92179 60445
             </a>
             <a href="mailto:Yashanapolymers1326@gmail.com" className="hidden items-center gap-1.5 transition hover:text-[#7FE3F7] sm:inline-flex">
               <Icon name="mail" className="h-3.5 w-3.5 text-[#00B3DF]" />
@@ -229,7 +214,7 @@ function Navbar() {
 
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-1 sm:px-6 lg:px-8">
         <a href="#top" className="flex items-center">
-          <Logo className="h-[80px] w-auto" />
+          <Logo className="h-12 w-auto sm:h-16 lg:h-[72px]" textClassName="text-xl sm:text-2xl lg:text-3xl" />
         </a>
 
         <ul className="hidden items-center gap-8 lg:flex">
@@ -357,28 +342,48 @@ function Counter({ value, suffix }) {
 
 function Stats() {
   return (
-    <section className="relative overflow-hidden border-b border-slate-100 bg-gradient-to-b from-[#F2FAFD] to-white pb-8 pt-10 sm:pb-12 sm:pt-16 lg:pb-14 lg:pt-20">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-32 top-0 h-72 w-72 rounded-full bg-[#00B3DF]/10 blur-[100px]" />
-        <div className="absolute -right-32 bottom-0 h-72 w-72 rounded-full bg-[#00A896]/10 blur-[100px]" />
-      </div>
-      <div className="relative mx-auto grid max-w-5xl grid-cols-3 px-2 sm:px-6 lg:px-8">
-        {STATS.map((s, i) => (
-          <div key={s.label} className={`flex flex-col items-center px-1 text-center sm:px-4 ${i > 0 ? "border-l border-slate-200" : ""}`}>
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#00A896] to-[#00B3DF] text-white shadow-lg shadow-[#00B3DF]/30 sm:h-12 sm:w-12">
-              <Icon name={s.icon} className="h-5 w-5 sm:h-6 sm:w-6" />
-            </span>
-            <p className={`${display} mt-3 flex items-start justify-center whitespace-nowrap text-3xl font-bold leading-none text-[#161C6E] sm:mt-4 sm:text-6xl`}>
-              <Counter value={s.value} suffix={s.suffix} />
-              {s.unit && (
-                <span className="ml-1 rounded-md bg-[#00A896]/10 px-1.5 py-0.5 font-[family-name:var(--font-body)] text-[10px] font-bold uppercase tracking-wider text-[#00A896] sm:ml-1.5 sm:text-xs">
-                  {s.unit}
+    <section className="relative overflow-hidden bg-slate-50 py-16 lg:py-20">
+      <div className="pointer-events-none absolute -left-32 top-0 h-72 w-72 rounded-full bg-[#2563EB]/10 blur-[100px]" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-72 w-72 rounded-full bg-[#F43F5E]/10 blur-[100px]" />
+
+      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+        <Reveal className="text-center lg:col-span-4 lg:text-left">
+          <SectionTag>By the Numbers</SectionTag>
+          <h2 className={`${display} mt-4 text-3xl font-bold uppercase leading-none text-[#161C6E] sm:text-5xl`}>
+            Growing with manufacturers across India
+          </h2>
+          <p className="mt-4 text-slate-600">Consistent quality and on-time supply have made us a trusted name for moulders nationwide.</p>
+        </Reveal>
+
+        <div className="grid gap-4 sm:grid-cols-3 lg:col-span-8">
+          {STATS.map((s, i) => (
+            <Reveal key={s.label} delay={i * 100} className="h-full">
+              <div className="relative flex h-full items-center gap-4 overflow-hidden rounded-3xl bg-white p-4 shadow-[0_10px_30px_-12px_rgba(22,28,110,0.18)] ring-1 ring-slate-100 transition hover:-translate-y-1 sm:flex-col sm:items-start sm:gap-0 sm:p-7">
+                <span className="absolute inset-x-0 top-0 h-1.5" style={{ background: `linear-gradient(90deg, ${s.from}, ${s.to})` }} />
+                <span
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white sm:h-14 sm:w-14"
+                  style={{ background: `linear-gradient(135deg, ${s.from}, ${s.to})`, boxShadow: `0 10px 20px -8px ${s.from}88` }}
+                >
+                  <Icon name={s.icon} className="h-6 w-6 sm:h-7 sm:w-7" />
                 </span>
-              )}
-            </p>
-            <p className="mt-2 text-[11px] font-medium uppercase leading-snug tracking-wider text-slate-500 sm:text-sm">{s.label}</p>
-          </div>
-        ))}
+                <div className="sm:mt-6">
+                  <p className={`${display} flex items-start whitespace-nowrap text-4xl font-bold leading-none sm:text-5xl xl:text-6xl`}>
+                    <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(135deg, ${s.from}, ${s.to})` }}>
+                      <Counter value={s.value} suffix={s.suffix} />
+                    </span>
+                    {s.unit && (
+                      <span className="ml-1.5 rounded-md px-1.5 py-0.5 font-[family-name:var(--font-body)] text-[10px] font-bold sm:text-xs uppercase tracking-wider" style={{ color: s.from, background: `${s.from}1A` }}>
+                        {s.unit}
+                      </span>
+                    )}
+                  </p>
+                  <p className="mt-1.5 text-sm font-bold uppercase tracking-wider text-[#161C6E] sm:mt-2 sm:text-base">{s.label}</p>
+                  <p className="mt-0.5 text-xs text-slate-500 sm:mt-1 sm:text-sm">{s.desc}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -388,8 +393,9 @@ function Stats() {
 function About() {
   return (
     <section id="about" className="relative bg-slate-50 py-24 lg:py-32">
-      <div className="mx-auto grid max-w-7xl items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-        <Reveal>
+      {/* mobile order: intro → image → pointers; desktop: text on the left, image on the right */}
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-8 lg:px-8">
+        <Reveal className="lg:col-start-1 lg:row-start-1 lg:self-end">
           <SectionTag>About Us</SectionTag>
           <h2 className={`${display} mt-5 text-4xl font-bold uppercase leading-[1.05] text-[#161C6E] sm:text-5xl lg:text-6xl`}>
             Your trusted partner in engineering plastics
@@ -400,7 +406,9 @@ function About() {
           <p className="mt-4 text-lg leading-relaxed text-slate-600">
             From the first enquiry to the final dispatch, we keep things simple: the right material, consistent quality, clear documentation and on-time delivery.
           </p>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+        </Reveal>
+        <Reveal className="order-last lg:order-none lg:col-start-1 lg:row-start-2 lg:self-start">
+          <ul className="grid gap-4 sm:grid-cols-2">
             {["Focused PC, ABS & PBT portfolio", "ISO 9001 & 14001 certified", "RoHS-compliant materials", "Batch-coded 25 kg packing"].map((t) => (
               <li key={t} className="flex items-start gap-3">
                 <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#00A896] text-white">
@@ -411,9 +419,9 @@ function About() {
             ))}
           </ul>
         </Reveal>
-        <Reveal delay={120} className="relative">
+        <Reveal delay={120} className="relative lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center">
           <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-[#00B3DF]/20 to-[#00A896]/20 blur-2xl" />
-          <div className="relative overflow-hidden rounded-[2rem] bg-white shadow-2xl shadow-[#161C6E]/15 ring-1 ring-slate-200">
+          <div className="relative overflow-hidden rounded-xl bg-white sm:rounded-[2rem] shadow-2xl shadow-[#161C6E]/15 ring-1 ring-slate-200">
             <img
               src="/about.webp"
               width="1600"
@@ -423,7 +431,7 @@ function About() {
               className="block h-auto w-full"
             />
           </div>
-          <div className="absolute -bottom-8 left-4 rounded-3xl bg-white p-5 shadow-2xl shadow-[#161C6E]/15 ring-1 ring-slate-100 sm:-left-8 sm:p-6">
+          <div className="absolute -bottom-8 left-4 hidden rounded-3xl bg-white p-5 sm:block shadow-2xl shadow-[#161C6E]/15 ring-1 ring-slate-100 sm:-left-8 sm:p-6">
             <div className="flex items-center gap-4">
               <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#00A896]/10 text-[#00A896] sm:h-14 sm:w-14">
                 <Icon name="award" className="h-7 w-7" />
@@ -440,10 +448,138 @@ function About() {
   );
 }
 
+/* 4b. PC dana spotlight — our priority product, shown in its real colour range */
+const PC_SHADES = [
+  { name: "Natural White", type: "Opaque", img: "/pc/natural-white.webp", dot: "#F1F1EE" },
+  { name: "Transparent Blue", type: "Transparent", img: "/pc/transparent-blue.webp", dot: "#1E3FA8" },
+  { name: "Transparent Red", type: "Transparent", img: "/pc/transparent-red.webp", dot: "#D4232B" },
+  { name: "Transparent Teal", type: "Transparent", img: "/pc/transparent-teal.webp", dot: "#14988E" },
+  { name: "Transparent Orange", type: "Transparent", img: "/pc/transparent-orange.webp", dot: "#F26A1B" },
+  { name: "Jet Black", type: "Opaque", img: "/pc/jet-black.webp", dot: "#1C1C1E" },
+  { name: "Lime & Orange", type: "Opaque", img: "/pc/lime-orange.webp", dot: "linear-gradient(135deg, #C6DD4A 50%, #F0561D 50%)" },
+  { name: "Sky Blue", type: "Opaque", img: "/pc/sky-blue.webp", dot: "#3E9FD6" },
+];
+
+const PC_POINTS = [
+  { icon: "shield", t: "High impact strength", d: "Tough parts that resist cracking" },
+  { icon: "bulb", t: "Crystal-clear grades", d: "Ideal for lighting & diffusers" },
+  { icon: "bolt", t: "Heat & flame resistant", d: "Stable in electrical housings" },
+  { icon: "gear", t: "Easy to mould", d: "Uniform granules, consistent flow" },
+];
+
+function PcDana() {
+  const [active, setActive] = useState(0);
+  const shade = PC_SHADES[active];
+
+  return (
+    <section id="pc-dana" className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-20 lg:py-28">
+      <div className="pointer-events-none absolute -left-32 top-10 h-96 w-96 rounded-full bg-[#00B3DF]/15 blur-[120px]" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#00A896]/10 blur-[120px]" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* mobile order: intro → colour viewer → points; desktop: copy on the left, viewer on the right */}
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-16 lg:gap-y-8">
+          {/* intro */}
+          <Reveal className="lg:col-span-5 lg:col-start-1 lg:row-start-1 lg:self-end">
+            <SectionTag>Our Speciality</SectionTag>
+            <h2 className={`${display} mt-5 text-5xl font-bold uppercase leading-[0.95] text-[#161C6E] sm:text-6xl`}>
+              Polycarbonate
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-slate-600">
+              Premium PC granules in natural, opaque and transparent shades — colour-matched to your requirement and packed in batch-coded 25 kg bags.
+            </p>
+          </Reveal>
+
+          {/* points + CTAs */}
+          <Reveal className="order-last lg:order-none lg:col-span-5 lg:col-start-1 lg:row-start-2">
+            <ul className="grid gap-4 sm:grid-cols-2">
+              {PC_POINTS.map((p) => (
+                <li key={p.t} className="flex gap-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#00B3DF] to-[#00A896] text-white">
+                    <Icon name={p.icon} className="h-5 w-5" />
+                  </span>
+                  <span>
+                    <span className="block font-semibold text-[#161C6E]">{p.t}</span>
+                    <span className="block text-sm text-slate-500">{p.d}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:flex">
+              <a href="#contact" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-r from-[#00A896] to-[#00B3DF] px-3 py-3.5 text-sm font-semibold sm:px-6 sm:text-base text-white shadow-lg shadow-[#00B3DF]/30 transition hover:scale-[1.03]">
+                Get PC Dana price
+                <Icon name="arrow" className="h-5 w-5 max-[380px]:hidden" />
+              </a>
+              <a
+                href={`https://wa.me/919217958610?text=${encodeURIComponent("Hi, I need a quote for PC dana.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-white px-3 py-3.5 text-sm font-semibold text-[#161C6E] sm:px-6 sm:text-base ring-1 ring-slate-200 transition hover:bg-[#25D366] hover:text-white hover:ring-[#25D366]"
+              >
+                <Icon name="whatsapp" className="h-5 w-5" />
+                WhatsApp us
+              </a>
+            </div>
+          </Reveal>
+
+          {/* colour viewer */}
+          <Reveal className="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:self-center" delay={150}>
+            <div className="relative overflow-hidden rounded-[2rem] shadow-2xl shadow-[#161C6E]/20 ring-1 ring-slate-200">
+              <div className="relative aspect-square bg-slate-100 sm:aspect-[1232/656]">
+                {PC_SHADES.map((s, i) => (
+                  <img
+                    key={s.img}
+                    src={s.img}
+                    width="1232"
+                    height="656"
+                    loading={i ? "lazy" : undefined}
+                    alt={`${s.name} polycarbonate (PC) dana granules`}
+                    className={`absolute inset-0 h-full w-full object-cover transition duration-700 ${i === active ? "scale-100 opacity-100" : "scale-105 opacity-0"}`}
+                  />
+                ))}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent" />
+                <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 text-white">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#7FE3F7]">{shade.type} PC</p>
+                    <p className={`${display} text-3xl font-bold uppercase leading-none sm:text-4xl`}>{shade.name}</p>
+                  </div>
+                  <p className={`${display} text-lg font-bold text-white/70`}>
+                    {String(active + 1).padStart(2, "0")} / {String(PC_SHADES.length).padStart(2, "0")}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* swatches */}
+            <div className="mt-5 grid grid-cols-4 gap-3 sm:grid-cols-8" role="tablist" aria-label="PC dana colours">
+              {PC_SHADES.map((s, i) => (
+                <button
+                  key={s.name}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === active}
+                  aria-label={s.name}
+                  onClick={() => setActive(i)}
+                  className={`group relative aspect-square overflow-hidden rounded-xl ring-2 transition ${i === active ? "ring-[#00B3DF]" : "ring-slate-200 hover:ring-[#00B3DF]/50"}`}
+                >
+                  <img src={s.img} width="1232" height="656" loading="lazy" alt="" className="h-full w-full scale-150 object-cover transition duration-500 group-hover:scale-[1.7]" />
+                  <span className="absolute bottom-1.5 left-1.5 h-3.5 w-3.5 rounded-full ring-2 ring-white" style={{ background: s.dot }} />
+                </button>
+              ))}
+            </div>
+            <p className="mt-4 text-sm text-slate-500">Tap a colour to preview · Custom shades available on request</p>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* 5. Products */
 function Products() {
   return (
-    <section id="products" className="relative overflow-hidden bg-white pb-24 pt-12 lg:pb-32 lg:pt-16">
+    <section id="products" className="relative overflow-hidden bg-white pb-15 pt-12 lg:pb-32 lg:pt-16">
       <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-[#00B3DF]/10 blur-3xl" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Heading tag="Our Materials" title="Three polymers. Endless possibilities." sub="Carefully selected engineering thermoplastics for moulders who demand consistency, performance and a flawless finish." />
@@ -507,132 +643,8 @@ function Products() {
   );
 }
 
-/* 6. Material guide — radar comparison */
+/* Polymer accent colours (used by the thermal section) */
 const POLY_COLORS = { PC: "#00B3DF", ABS: "#00A896", PBT: "#2B37A8" };
-
-function Radar({ focus }) {
-  const cx = 220, cy = 210, R = 130, n = COMPARE.length;
-  const pt = (i, r) => {
-    const a = (Math.PI * 2 * i) / n - Math.PI / 2;
-    return [cx + Math.cos(a) * r, cy + Math.sin(a) * r];
-  };
-  const poly = (fn) => COMPARE.map((row, i) => pt(i, fn(row)).join(",")).join(" ");
-
-  return (
-    <svg viewBox="-70 0 580 420" className="w-full" role="img" aria-label="Radar chart comparing PC, ABS and PBT across seven properties">
-      {[1, 2, 3, 4, 5].map((l) => (
-        <polygon key={l} points={poly(() => (R * l) / 5)} fill={l % 2 ? "#F8FAFC" : "#fff"} stroke="#E2E8F0" />
-      ))}
-      {COMPARE.map((_, i) => {
-        const [x, y] = pt(i, R);
-        return <line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke="#E2E8F0" />;
-      })}
-
-      <g className="radar-shapes">
-        {PRODUCTS.map((p) => {
-          const on = !focus || focus === p.code;
-          return (
-            <polygon
-              key={p.code}
-              points={poly((row) => (R * row[p.code]) / 5)}
-              fill={POLY_COLORS[p.code]}
-              fillOpacity={focus === p.code ? 0.35 : on ? 0.14 : 0.04}
-              stroke={POLY_COLORS[p.code]}
-              strokeOpacity={on ? 1 : 0.2}
-              strokeWidth={focus === p.code ? 3 : 2}
-              strokeLinejoin="round"
-              className="transition-all duration-500"
-            />
-          );
-        })}
-        {focus &&
-          COMPARE.map((row, i) => {
-            const [x, y] = pt(i, (R * row[focus]) / 5);
-            return <circle key={i} cx={x} cy={y} r="4.5" fill="#fff" stroke={POLY_COLORS[focus]} strokeWidth="2.5" />;
-          })}
-      </g>
-
-      {COMPARE.map((row, i) => {
-        const [x, y] = pt(i, R + 30);
-        const anchor = Math.abs(x - cx) < 10 ? "middle" : x > cx ? "start" : "end";
-        const [first, ...rest] = row.prop.split(" ");
-        return (
-          <text key={row.prop} x={x} y={y - (rest.length ? 8 : -5)} textAnchor={anchor} className="fill-slate-500 text-[15px] font-semibold uppercase tracking-wide">
-            <tspan x={x}>{first}</tspan>
-            {rest.length > 0 && <tspan x={x} dy="18">{rest.join(" ")}</tspan>}
-          </text>
-        );
-      })}
-    </svg>
-  );
-}
-
-function Compare() {
-  const [focus, setFocus] = useState(null);
-  const strengths = (code) =>
-    [...COMPARE].filter((r) => r[code] >= 4).sort((a, b) => b[code] - a[code]).slice(0, 3).map((r) => r.prop);
-
-  return (
-    <section className="relative overflow-hidden bg-white py-24 lg:py-32">
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Heading tag="Material Guide" title="Choose the right polymer" sub="Every polymer has its own shape of strengths. Hover a material to see where it shines." />
-
-        <div className="mt-16 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <Reveal className="radar mx-auto w-full max-w-xl">
-            <Radar focus={focus} />
-            <div className="mt-4 flex justify-center gap-6">
-              {PRODUCTS.map((p) => (
-                <span key={p.code} className="inline-flex items-center gap-2 text-sm font-semibold text-[#161C6E]">
-                  <span className="h-3 w-3 rounded-full" style={{ background: POLY_COLORS[p.code] }} />
-                  {p.code}
-                </span>
-              ))}
-            </div>
-          </Reveal>
-
-          <div className="divide-y divide-slate-100" onMouseLeave={() => setFocus(null)}>
-            {PRODUCTS.map((p) => {
-              const on = focus === p.code;
-              return (
-                <button
-                  key={p.code}
-                  type="button"
-                  onMouseEnter={() => setFocus(p.code)}
-                  onFocus={() => setFocus(p.code)}
-                  onClick={() => setFocus(on ? null : p.code)}
-                  aria-pressed={on}
-                  className={`relative flex w-full items-center gap-5 py-6 pl-6 text-left transition duration-300 ${focus && !on ? "opacity-50" : ""}`}
-                >
-                  <span className="absolute inset-y-4 left-0 w-1 rounded-full transition-all duration-300" style={{ background: POLY_COLORS[p.code], opacity: on ? 1 : 0.25 }} />
-                  <img src={p.img} width="1000" height="812" loading="lazy" alt="" className="hidden h-20 w-24 shrink-0 object-contain sm:block" />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Choose</p>
-                    <p className={`${display} text-4xl font-bold leading-none`} style={{ color: POLY_COLORS[p.code] }}>
-                      {p.code} <span className="text-base font-semibold normal-case tracking-normal text-slate-400">· {p.tagline}</span>
-                    </p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {strengths(p.code).map((x) => (
-                        <span key={x} className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
-                          <Icon name="check" className="h-3.5 w-3.5" />
-                          {x}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <Icon name="arrow" className={`h-5 w-5 shrink-0 transition ${on ? "translate-x-1 text-[#161C6E]" : "text-slate-300"}`} />
-                </button>
-              );
-            })}
-            <p className="pt-6 text-sm text-slate-400">
-              Indicative ratings for general-purpose grades. Need exact values?{" "}
-              <a href="#contact" className="font-semibold text-[#00A896] hover:underline">Ask for a data sheet →</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* 6b. Thermal properties — temperature probe across heat lanes */
 const T_MAX = 350;
@@ -641,13 +653,6 @@ const THERMAL = [
   { code: "PC", type: "Amorphous", tg: 147, tm: null, cut: 125, proc: [280, 320], note: "Holds shape close to its Tg — the heat champion of the amorphous pair." },
   { code: "ABS", type: "Amorphous", tg: 105, tm: null, cut: 80, proc: [220, 260], note: "Easy, low-temperature moulding — best kept below ~80 °C in service." },
   { code: "PBT", type: "Semi-crystalline", tg: 50, tm: 225, cut: 140, proc: [240, 270], note: "Crystals keep it rigid well above Tg, with a sharp melt at 225 °C." },
-];
-
-const THERMAL_METRICS = [
-  { title: "Heat deflection", sub: "HDT @ 1.8 MPa", unit: "°C", better: "high", vals: { PC: 130, ABS: 95, PBT: 60 }, foot: "PBT rises past 200 °C with glass-fibre grades" },
-  { title: "Vicat softening", sub: "VST/B50", unit: "°C", better: "high", vals: { PC: 145, ABS: 100, PBT: 180 } },
-  { title: "Thermal expansion", sub: "CTE · ×10⁻⁶/K", unit: "", better: "low", vals: { PC: 68, ABS: 90, PBT: 100 }, foot: "Lower means better dimensional stability" },
-  { title: "Pre-drying", sub: "Before moulding", unit: "°C", better: "none", vals: { PC: 120, ABS: 80, PBT: 120 }, foot: "Typically 2–4 h in a desiccant dryer" },
 ];
 
 const PRESETS = [
@@ -788,43 +793,69 @@ function Thermal() {
           </div>
         </Reveal>
 
-        {/* thermal fingerprint cards */}
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {THERMAL_METRICS.map((m, i) => {
-            const max = Math.max(...Object.values(m.vals));
-            const vals = Object.values(m.vals);
-            const best = m.better === "high" ? Math.max(...vals) : m.better === "low" ? Math.min(...vals) : null;
-            return (
-              <Reveal key={m.title} delay={i * 80} className="flex flex-col rounded-3xl bg-white p-6 shadow-[0_8px_24px_-12px_rgba(22,28,110,0.12)] ring-1 ring-slate-200/80">
-                <p className={`${display} text-2xl font-bold uppercase leading-none text-[#161C6E]`}>{m.title}</p>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-slate-400">{m.sub}</p>
-                <div className="mt-6 space-y-4">
-                  {THERMAL.map((d) => {
-                    const v = m.vals[d.code];
-                    const c = POLY_COLORS[d.code];
-                    return (
-                      <div key={d.code} className="flex items-center gap-3">
-                        <span className={`${display} w-9 text-lg font-bold`} style={{ color: c }}>{d.code}</span>
-                        <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-100">
-                          <div className="thermo-bar h-full rounded-full" style={{ width: `${(v / max) * 100}%`, background: `linear-gradient(90deg, ${c}66, ${c})` }} />
-                        </div>
-                        <span className={`w-14 text-right text-sm font-bold tabular-nums ${v === best ? "text-[#161C6E]" : "text-slate-500"}`}>
-                          {v}{m.unit && <span className="text-xs font-semibold">{m.unit}</span>}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-                {m.foot && <p className="mt-auto pt-5 text-xs leading-relaxed text-slate-400">{m.foot}</p>}
-              </Reveal>
-            );
-          })}
-        </div>
-
         <p className="mt-8 text-center text-sm text-slate-400">
           Typical values for unfilled, general-purpose grades — exact figures vary by grade.{" "}
           <a href="#contact" className="font-semibold text-[#00A896] hover:underline">Request a grade-specific TDS →</a>
         </p>
+      </div>
+    </section>
+  );
+}
+
+/* 6c. In-house testing lab — every step a batch goes through before dispatch */
+const LAB_STEPS = [
+  { slug: "colour-sampling", title: "Colour Sampling", text: "Granules loaded into the dryer for a colour-matched trial batch." },
+  { slug: "machine-setup", title: "Machine Setup", text: "Moulding parameters set for the exact grade under test." },
+  { slug: "specimen-moulding", title: "Specimen Moulding", text: "Standard test bars moulded from the same batch." },
+  { slug: "notch-cutting", title: "Notch Cutting", text: "Precision notches cut into bars for impact testing." },
+  { slug: "dimension-check", title: "Dimension Check", text: "Every specimen measured with digital callipers." },
+  { slug: "specimen-trimming", title: "Specimen Trimming", text: "Runners removed for clean, uniform test pieces." },
+  { slug: "melt-flow-index", title: "Melt Flow Index", text: "MFI checked to confirm consistent processing flow." },
+  { slug: "impact-testing", title: "Impact Testing", text: "Pendulum impact test measures the material's toughness." },
+  { slug: "colour-measurement", title: "Colour Measurement", text: "Spectrophotometer verifies the shade against the standard." },
+  { slug: "tensile-testing", title: "Tensile Testing", text: "UTM checks tensile strength and elongation." },
+];
+
+function Lab() {
+  return (
+    <section id="lab" className="relative overflow-hidden bg-white py-20 lg:py-28">
+      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-[#00B3DF]/10 blur-[120px]" />
+      <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-[#00A896]/10 blur-[120px]" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Heading tag="Our Testing Lab" title="Tested in-house, batch after batch" sub="Every lot goes through our lab before it is packed — from colour sampling to tensile strength." />
+
+        <div className="mt-14 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-5">
+          {LAB_STEPS.map((s, i) => (
+            <Reveal key={s.slug} delay={(i % 5) * 70} className="h-full">
+              <div className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_8px_24px_-12px_rgba(22,28,110,0.18)] ring-1 ring-slate-200/80 transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_40px_-16px_rgba(22,28,110,0.3)] sm:rounded-3xl">
+                <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                  <img
+                    src={`/lab/${s.slug}.webp`}
+                    width="1200"
+                    height="675"
+                    loading="lazy"
+                    alt={`${s.title} in the Yashana Polymers testing lab`}
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <span className={`${display} absolute left-2.5 top-2.5 rounded-lg bg-gradient-to-br from-[#00A896] to-[#00B3DF] px-2 py-0.5 text-sm font-bold text-white shadow-lg sm:left-3 sm:top-3 sm:text-base`}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="flex flex-1 flex-col p-3 sm:p-4">
+                  <h3 className="text-sm font-bold leading-snug text-[#161C6E] sm:text-base">{s.title}</h3>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-500 sm:text-sm">{s.text}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#00A896] to-[#00B3DF] px-7 py-3.5 font-semibold text-white shadow-lg shadow-[#00B3DF]/30 transition hover:scale-[1.03]">
+            Request a test report
+            <Icon name="arrow" className="h-5 w-5" />
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -875,75 +906,48 @@ function Industries() {
   );
 }
 
-/* 8. Values */
-function Values() {
-  return (
-    <section className="bg-slate-50 py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Heading tag="Our Values" title="Four promises in every bag" sub="The same four words printed on our packaging guide how we work every day." />
-        <div className="mt-16 grid gap-px overflow-hidden rounded-[2rem] bg-slate-200 sm:grid-cols-2 lg:grid-cols-4">
-          {VALUES.map((v, i) => (
-            <Reveal key={v.title} delay={i * 100} className="h-full">
-              <div className="group relative h-full bg-white p-10 transition hover:bg-gradient-to-b hover:from-white hover:to-[#00B3DF]/5">
-                <span className={`${display} absolute right-8 top-6 text-6xl font-bold text-slate-100`}>0{i + 1}</span>
-                <span className="relative flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#00B3DF] text-[#161C6E] transition group-hover:bg-[#161C6E] group-hover:text-white">
-                  <Icon name={v.icon} className="h-8 w-8" />
-                </span>
-                <h3 className={`${display} relative mt-6 text-2xl font-bold uppercase tracking-wide text-[#161C6E]`}>{v.title}</h3>
-                <p className="relative mt-3 leading-relaxed text-slate-600">{v.text}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* 9. Quality & Certifications */
 function Quality() {
   return (
-    <section id="quality" className="relative overflow-hidden bg-gradient-to-br from-[#00A896] to-[#008F80] py-24 lg:py-32">
-      <svg className="pointer-events-none absolute -right-20 top-0 h-full w-1/2 opacity-30" viewBox="0 0 200 400" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M200 0 C 60 120, 40 220, 120 320 S 160 400, 100 400 L200 400Z" fill="#00B3DF" />
-        <path d="M200 30 C 90 140, 80 220, 150 310 S 190 390, 160 400 L200 400Z" fill="#161C6E" />
-      </svg>
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Heading light tag="Quality & Compliance" title="Certified to perform. Built to comply." />
-        <div className="mt-16 grid items-center gap-16 lg:grid-cols-5">
-        <Reveal className="lg:col-span-2">
-          <p className="text-lg leading-relaxed text-white/80">
-            Our management systems are certified to international standards, and our materials are RoHS compliant — giving you confidence in every batch you process.
-          </p>
-          <a href="#contact" className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 font-semibold text-[#161C6E] shadow-xl transition hover:scale-[1.03]">
-            Request certificates
-            <Icon name="arrow" className="h-5 w-5" />
-          </a>
+    <section id="quality" className="border-y border-slate-100 bg-white py-14 lg:py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
+          {/* intro */}
+          <div className="text-center lg:w-1/3 lg:text-left">
+            <SectionTag>Quality &amp; Compliance</SectionTag>
+            <h2 className={`${display} mt-4 text-4xl font-bold uppercase leading-none text-[#161C6E] sm:text-5xl`}>Certified &amp; trusted</h2>
+            <p className="mt-3 text-slate-600">Recognised standards behind every batch we supply.</p>
+            <a href="#contact" className="mt-5 inline-flex items-center gap-2 border-b-2 border-[#00A896] pb-1 font-semibold text-[#161C6E] transition hover:gap-3 hover:text-[#00A896]">
+              Request certificates
+              <Icon name="arrow" className="h-4 w-4" />
+            </a>
+          </div>
+
+          {/* badges */}
+          <ul className="grid w-full grid-cols-2 gap-4 sm:grid-cols-4 lg:w-2/3">
+            {CERTS.map((c) => (
+              <li key={c.title} className="flex flex-col items-center rounded-2xl bg-slate-50 px-3 py-5 text-center ring-1 ring-slate-100 transition hover:-translate-y-1 hover:bg-white hover:shadow-lg hover:shadow-[#161C6E]/10">
+                <img src={c.img} width="140" height="140" loading="lazy" alt={`${c.title} badge`} className="h-20 w-20 object-contain sm:h-24 sm:w-24" />
+                <p className="mt-3 text-sm font-bold text-[#161C6E]">{c.title}</p>
+                <p className="mt-0.5 text-xs leading-snug text-slate-500">{c.sub}</p>
+              </li>
+            ))}
+          </ul>
         </Reveal>
-        <div className="grid gap-5 sm:grid-cols-2 lg:col-span-3">
-          {CERTS.map((c, i) => (
-            <Reveal key={c.title} delay={i * 80} className={i === 0 ? "sm:col-span-2" : ""}>
-              <div className="flex h-full items-center gap-5 rounded-3xl bg-white/95 p-6 shadow-xl shadow-black/10 transition hover:-translate-y-1">
-                <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#161C6E] text-white">
-                  <span className="absolute inset-1 rounded-full border border-dashed border-white/40" />
-                  <Icon name={i === 3 ? "shield" : i === 4 ? "pin" : "award"} className="h-7 w-7" />
-                </span>
-                <div>
-                  <p className={`${display} text-2xl font-bold uppercase text-[#161C6E]`}>{c.title}</p>
-                  <p className="text-sm text-slate-500">{c.sub}</p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-        </div>
       </div>
     </section>
   );
 }
 
 /* 10. Process — production-line journey */
-const STEP_COLORS = ["#00B3DF", "#00A8C6", "#00A896", "#2B7FB8", "#3B46C4"];
+// one colour per step: gradient for the icon tile, `ink` for readable text on white
+const STEP_COLORS = [
+  { from: "#3B82F6", to: "#06B6D4", ink: "#2563EB" },
+  { from: "#F59E0B", to: "#F97316", ink: "#D97706" },
+  { from: "#10B981", to: "#14B8A6", ink: "#059669" },
+  { from: "#EC4899", to: "#F43F5E", ink: "#DB2777" },
+  { from: "#8B5CF6", to: "#6366F1", ink: "#7C3AED" },
+];
 
 function StepCard({ s, i }) {
   return (
@@ -951,12 +955,12 @@ function StepCard({ s, i }) {
       <span className={`${display} step-outline pointer-events-none absolute -right-2 -top-4 text-8xl font-bold leading-none`} aria-hidden="true">
         {s.n}
       </span>
-      <p className="relative text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: STEP_COLORS[i] }}>
+      <p className="relative text-[11px] font-bold uppercase tracking-[0.2em]" style={{ color: STEP_COLORS[i].ink }}>
         Step {s.n}
       </p>
       <h3 className="relative mt-2 text-lg font-bold text-[#161C6E]">{s.title}</h3>
       <p className="relative mt-2 text-sm leading-relaxed text-slate-600">{s.text}</p>
-      <span className="absolute bottom-0 left-6 h-0.5 w-0 rounded-full transition-all duration-500 group-hover:w-16" style={{ background: STEP_COLORS[i] }} />
+      <span className="absolute bottom-0 left-6 h-0.5 w-0 rounded-full transition-all duration-500 group-hover:w-16" style={{ background: STEP_COLORS[i].from }} />
     </div>
   );
 }
@@ -965,7 +969,7 @@ function StepNode({ s, i }) {
   return (
     <span
       className="relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl text-white ring-8 ring-white transition duration-500 hover:rotate-6 hover:scale-110"
-      style={{ background: `linear-gradient(135deg, ${STEP_COLORS[i]}, #161C6E)`, boxShadow: `0 0 0 1px ${STEP_COLORS[i]}66, 0 12px 30px -6px ${STEP_COLORS[i]}aa` }}
+      style={{ background: `linear-gradient(135deg, ${STEP_COLORS[i].from}, ${STEP_COLORS[i].to})`, boxShadow: `0 0 0 1px ${STEP_COLORS[i].from}55, 0 12px 30px -6px ${STEP_COLORS[i].from}aa` }}
     >
       <Icon name={s.icon} className="h-7 w-7" />
     </span>
@@ -1103,7 +1107,7 @@ function WhyUs() {
         <Reveal className={`${card} mt-6 overflow-hidden`}>
           <div className="grid grid-cols-2 border-b border-slate-100">
             <p className="flex items-center px-5 py-3 sm:px-8">
-              <Logo className="h-10 w-auto sm:h-12" />
+              <Logo className="h-7 w-auto sm:h-10" textClassName="text-sm sm:text-xl" />
             </p>
             <p className={`${display} border-l border-slate-100 px-5 py-5 text-xl font-bold uppercase text-slate-400 sm:px-8`}>The usual way</p>
           </div>
@@ -1151,45 +1155,13 @@ function CustomCTA() {
               Discuss your requirement
               <Icon name="arrow" className="h-5 w-5" />
             </a>
-            <a href="tel:+919217958610" className="inline-flex items-center gap-2 rounded-full border border-[#161C6E]/20 bg-white px-7 py-4 font-semibold text-[#161C6E] transition hover:border-[#00A896] hover:text-[#00A896]">
+            <a href="tel:+919217960445" className="inline-flex items-center gap-2 rounded-full border border-[#161C6E]/20 bg-white px-7 py-4 font-semibold text-[#161C6E] transition hover:border-[#00A896] hover:text-[#00A896]">
               <Icon name="phone" className="h-5 w-5" />
               Call now
             </a>
           </div>
         </div>
       </Reveal>
-    </section>
-  );
-}
-
-/* 14. FAQ */
-function FAQ() {
-  const [open, setOpen] = useState(0);
-  return (
-    <section id="faq" className="bg-slate-50 py-24 lg:py-32">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <Heading tag="FAQ" title="Questions, answered" />
-        <div className="mt-14 space-y-4">
-          {FAQS.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={f.q} className={`overflow-hidden rounded-2xl bg-white ring-1 transition ${isOpen ? "shadow-lg shadow-[#161C6E]/10 ring-[#00B3DF]/40" : "ring-slate-100"}`}>
-                <button onClick={() => setOpen(isOpen ? -1 : i)} className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left" aria-expanded={isOpen}>
-                  <span className="text-lg font-semibold text-[#161C6E]">{f.q}</span>
-                  <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition ${isOpen ? "rotate-45 bg-[#00A896] text-white" : "bg-slate-100 text-[#161C6E]"}`}>
-                    <Icon name="plus" className="h-5 w-5" />
-                  </span>
-                </button>
-                <div className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                  <div className="overflow-hidden">
-                    <p className="px-6 pb-6 leading-relaxed text-slate-600">{f.a}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
     </section>
   );
 }
@@ -1208,34 +1180,41 @@ function Contact() {
   const input = "w-full rounded-xl border-0 bg-slate-50 px-4 py-3.5 text-slate-800 ring-1 ring-slate-200 transition placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#00B3DF]";
 
   const contacts = [
-    { icon: "phone", label: "Mobile", lines: [{ t: "+91 92179 58610", h: "tel:+919217958610" }] },
-    { icon: "mail", label: "Email", lines: [{ t: "Yashanapolymers1326@gmail.com", h: "mailto:Yashanapolymers1326@gmail.com" }] },
-    { icon: "globe", label: "Website", lines: [{ t: "www.yashanapolymers.com", h: "https://www.yashanapolymers.com" }] },
-    { icon: "pin", label: "Location", lines: [{ t: "Delhi, India" }] },
+    { icon: "phone", label: "Mobile", from: "#3B82F6", to: "#06B6D4", lines: [{ t: "+91 92179 60445", h: "tel:+919217960445" }] },
+    { icon: "whatsapp", label: "WhatsApp", from: "#25D366", to: "#128C7E", lines: [{ t: "+91 92179 58610", h: "https://wa.me/919217958610", ext: true }] },
+    { icon: "mail", label: "Email", from: "#F59E0B", to: "#F97316", lines: [{ t: "Yashanapolymers1326@gmail.com", wrapAt: "@", h: "mailto:Yashanapolymers1326@gmail.com" }] },
+    { icon: "globe", label: "Website", from: "#8B5CF6", to: "#6366F1", lines: [{ t: "www.yashanapolymers.com", h: "https://www.yashanapolymers.com" }] },
+    { icon: "pin", label: "Address", from: "#EC4899", to: "#F43F5E", lines: [{ t: "Plot No. 30, Pocket C, Sector 2," }, { t: "Bawana DSIIDC Industrial Area," }, { t: "Delhi - 110039" }] },
   ];
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-white py-24 lg:py-32">
+    <section id="contact" className="relative overflow-hidden bg-white py-24 ">
       <div className="pointer-events-none absolute -right-40 top-0 h-[30rem] w-[30rem] rounded-full bg-[#00B3DF]/10 blur-[120px]" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Heading tag="Get in Touch" title="Let's talk polymers" sub="Send us your requirement and our team will get back to you with availability and pricing." />
         <div className="mt-16 grid gap-12 lg:grid-cols-5">
         <div className="lg:col-span-2">
-          <div className="space-y-4">
+          {/* on desktop the cards stretch so this column matches the form's height */}
+          <div className="space-y-4 lg:flex lg:h-full lg:flex-col lg:gap-4 lg:space-y-0">
             {contacts.map((c) => (
-              <div key={c.label} className="flex items-start gap-4 rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-100">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#00A896] to-[#00B3DF] text-white">
-                  <Icon name={c.icon} className="h-6 w-6" />
+              <div key={c.label} className="flex items-center gap-3.5 rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-100 sm:items-start sm:gap-4 sm:p-5 lg:flex-1 lg:items-center">
+                <span
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white sm:h-12 sm:w-12"
+                  style={{ background: `linear-gradient(135deg, ${c.from}, ${c.to})`, boxShadow: `0 8px 18px -8px ${c.from}aa` }}
+                >
+                  <Icon name={c.icon} className="h-5 w-5 sm:h-6 sm:w-6" />
                 </span>
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">{c.label}</p>
-                  {c.lines.map((l) =>
-                    l.h ? (
-                      <a key={l.t} href={l.h} className="block break-all font-semibold text-[#161C6E] transition hover:text-[#00A896]">{l.t}</a>
+                <div className="min-w-0 text-[15px] leading-snug sm:text-base sm:leading-normal">
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-slate-500 sm:text-xs">{c.label}</p>
+                  {c.lines.map((l) => {
+                    // let long values (the email) wrap at a natural point instead of mid-word
+                    const text = l.wrapAt ? <>{l.t.split(l.wrapAt)[0]}<wbr />{l.wrapAt}{l.t.split(l.wrapAt)[1]}</> : l.t;
+                    return l.h ? (
+                      <a key={l.t} href={l.h} {...(l.ext && { target: "_blank", rel: "noopener noreferrer" })} className="mt-0.5 block font-semibold text-[#161C6E] [overflow-wrap:anywhere] transition hover:text-[#00A896]">{text}</a>
                     ) : (
-                      <p key={l.t} className="font-semibold text-[#161C6E]">{l.t}</p>
-                    )
-                  )}
+                      <p key={l.t} className="font-semibold text-[#161C6E]">{text}</p>
+                    );
+                  })}
                 </div>
               </div>
             ))}
@@ -1279,14 +1258,56 @@ function Contact() {
 }
 
 /* 16. Footer */
+/* Floating contact buttons: full-width split bar on mobile, round buttons on desktop */
+function FloatingContact() {
+  return (
+    <>
+      <a
+        href="tel:+919217960445"
+        aria-label="Call +91 92179 60445"
+        className="fixed bottom-0 left-0 z-50 flex h-14 w-1/2 items-center justify-center gap-2 bg-[#161C6E] font-semibold text-white transition hover:bg-[#0E1352] md:bottom-6 md:left-6 md:h-14 md:w-14 md:rounded-full md:shadow-lg md:shadow-[#161C6E]/30 md:hover:scale-110"
+      >
+        <Icon name="phone" className="h-6 w-6" />
+        <span className="md:hidden">Call</span>
+      </a>
+      <a
+        href="https://wa.me/919217958610"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat on WhatsApp +91 92179 58610"
+        className="fixed bottom-0 right-0 z-50 flex h-14 w-1/2 items-center justify-center gap-2 bg-[#25D366] font-semibold text-white transition hover:bg-[#1EBE5A] md:bottom-6 md:right-6 md:h-14 md:w-14 md:rounded-full md:shadow-lg md:shadow-[#25D366]/40 md:hover:scale-110"
+      >
+        <Icon name="whatsapp" className="h-7 w-7" />
+        <span className="md:hidden">WhatsApp</span>
+      </a>
+    </>
+  );
+}
+
+/* Google Map: full width, below the contact section */
+function MapEmbed() {
+  return (
+    <section aria-label="Our location on Google Maps" className="bg-white">
+      <iframe
+        title="Yashana Polymers location"
+        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3496.245922488292!2d77.04684067550703!3d28.801744475572733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjjCsDQ4JzA2LjMiTiA3N8KwMDInNTcuOSJF!5e0!3m2!1sen!2sin!4v1791530943477!5m2!1sen!2sin"
+        className="block h-[350px] w-full border-0 md:h-[450px]"
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+    </section>
+  );
+}
+
 function Footer() {
   return (
-    <footer className="bg-[#080B36] pt-16 text-white/60">
+    <footer className="bg-[#080B36] pb-14 pt-16 text-white/60 md:pb-0">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 pb-12 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
           {/* white card so the JPG's white background sits cleanly on the dark footer */}
           <div className="inline-flex rounded-2xl bg-white px-4 py-2">
-            <Logo className="h-14 w-auto" />
+            <Logo className="h-12 w-auto" textClassName="text-xl sm:text-2xl" />
           </div>
           <p className="mt-5 max-w-md leading-relaxed">
             Manufacturer and supplier of premium PC, ABS and PBT engineering polymers. Sustainable · Innovative · Reliable · Responsible.
@@ -1308,9 +1329,9 @@ function Footer() {
         <div>
           <p className="font-semibold uppercase tracking-widest text-white">Contact</p>
           <ul className="mt-5 space-y-3">
-            <li><a href="tel:+919217958610" className="hover:text-[#7FE3F7]">+91 92179 58610</a></li>
+            <li><a href="tel:+919217960445" className="hover:text-[#7FE3F7]">+91 92179 60445</a></li>
             <li><a href="mailto:Yashanapolymers1326@gmail.com" className="break-all hover:text-[#7FE3F7]">Yashanapolymers1326@gmail.com</a></li>
-            <li>Delhi, India</li>
+            <li>Plot No. 30, Pocket C, Sector 2, Bawana DSIIDC Industrial Area, Delhi - 110039</li>
           </ul>
         </div>
       </div>
@@ -1351,8 +1372,6 @@ export default function Home() {
         .thermo-range::-moz-range-thumb { height: 16px; width: 16px; border-radius: 999px; background: #fff; border: 4px solid #161C6E; box-shadow: 0 4px 12px rgba(22,28,110,.3); }
         .thermo-range:focus-visible { outline: 2px solid #00B3DF; outline-offset: 6px; }
         .thermo-hatch { background: repeating-linear-gradient(135deg, #38BDF8 0 4px, rgba(56,189,248,.25) 4px 8px); }
-        .thermo-bar { transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(.2,.8,.2,1) .3s; }
-        .reveal.in .thermo-bar { transform: none; }
         .step-outline { color: transparent; -webkit-text-stroke: 1px rgba(22,28,110,.08); }
         .pipe-flow { background: repeating-linear-gradient(90deg, #00B3DF 0 14px, transparent 14px 28px); animation: pipe 1.2s linear infinite; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
         .pipe-flow-v { background: repeating-linear-gradient(180deg, #00B3DF 0 10px, transparent 10px 20px); animation: pipev 1s linear infinite; }
@@ -1370,7 +1389,7 @@ export default function Home() {
         .grid-bg { background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 48px 48px; }
         @media (prefers-reduced-motion: reduce) {
           .reveal { opacity: 1; transform: none; }
-          .radar-shapes, .thermo-bar { transform: none; }
+          .radar-shapes { transform: none; }
           .float, .pellet, .marquee, .pipe-flow, .pipe-flow-v, .pipe-pellet { animation: none; }
         }
       `}</style>
@@ -1378,20 +1397,21 @@ export default function Home() {
       <Navbar />
       <Hero />
       <TrustStrip />
-      <Stats />
+      <Quality />
       <Products />
       <About />
-      <Compare />
+      <PcDana />
+      <Stats />
       <Thermal />
+      <Lab />
       <Industries />
-      <Values />
-      <Quality />
       <Process />
       <WhyUs />
       <CustomCTA />
-      <FAQ />
       <Contact />
+      <MapEmbed />
       <Footer />
+      <FloatingContact />
     </main>
   );
 }
