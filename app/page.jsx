@@ -448,6 +448,58 @@ function About() {
   );
 }
 
+/* 4a. Parent company — Shri Ganesh Polymer */
+const PARENT_FACTS = [
+  { icon: "award", t: "15+ years", d: "in engineering polymers", from: "#3B82F6", to: "#06B6D4" },
+  { icon: "gear", t: "In-house compounding", d: "twin & single screw extruders", from: "#F59E0B", to: "#F97316" },
+  { icon: "pin", t: "Mangolpuri, Delhi", d: "manufacturing unit", from: "#EC4899", to: "#F43F5E" },
+];
+
+function Parent() {
+  return (
+    <section className="bg-white py-14 lg:py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#EEF7FF] via-white to-[#EAFBF7] p-6 ring-1 ring-slate-200/80 sm:p-10">
+          <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#00B3DF]/10 blur-3xl" />
+          <div className="relative grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-6">
+              <SectionTag>Our Parent Company</SectionTag>
+              <h2 className={`${display} mt-4 text-3xl font-bold uppercase leading-none text-[#161C6E] sm:text-4xl`}>
+                A part of <span className="bg-gradient-to-r from-[#00B3DF] to-[#00A896] bg-clip-text text-transparent">Shri Ganesh Polymer</span>
+              </h2>
+              <p className="mt-4 text-slate-600">
+                Yashana Polymers is backed by Shri Ganesh Polymer — an ISO 9001 &amp; 14001 certified manufacturer of PC, ABS and PBT engineering polymers. The same expertise, lab testing and quality standards go into every Yashana batch.
+              </p>
+              <a
+                href="https://shriganeshpolymer.in/"
+                target="_blank"
+                rel="noopener"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#161C6E] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-[#161C6E]/20 transition hover:scale-[1.03] hover:bg-[#0E1352]"
+              >
+                Visit shriganeshpolymer.in
+                <Icon name="arrow" className="h-4 w-4" />
+              </a>
+            </div>
+            <ul className="grid gap-3 sm:grid-cols-3 lg:col-span-6">
+              {PARENT_FACTS.map((f) => (
+                <li key={f.t} className="flex items-center gap-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100 sm:flex-col sm:items-start sm:p-5">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white" style={{ background: `linear-gradient(135deg, ${f.from}, ${f.to})` }}>
+                    <Icon name={f.icon} className="h-5 w-5" />
+                  </span>
+                  <span className="sm:mt-1">
+                    <span className="block font-bold text-[#161C6E]">{f.t}</span>
+                    <span className="block text-sm text-slate-500">{f.d}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 /* 4b. PC dana spotlight — our priority product, shown in its real colour range */
 const PC_SHADES = [
   { name: "Natural White", type: "Opaque", img: "/pc/natural-white.webp", dot: "#F1F1EE" },
@@ -1400,6 +1452,7 @@ export default function Home() {
       <Quality />
       <Products />
       <About />
+      <Parent />
       <PcDana />
       <Stats />
       <Thermal />

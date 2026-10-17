@@ -17,7 +17,11 @@ export const metadata = {
     "Yashana Polymers manufactures and supplies premium PC, ABS and PBT engineering polymers. ISO 9001 & 14001 certified, RoHS compliant, batch-coded 25 kg packing.",
     icons:{
       icon:"/logo.jpg"
-    }
+    },
+  metadataBase: new URL("https://www.yashanapolymers.com"),
+  alternates: { canonical: "/" },
+  // Google Search Console ownership tag → <meta name="google-site-verification" ...>
+  verification: { google: "j9SjuATGjsvKFncfjdpdOF1zl5ScTMgBrSTr3My6jqw" },
 };
 
 export default function RootLayout({ children }) {
