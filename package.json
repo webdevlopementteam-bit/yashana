@@ -9,7 +9,7 @@
     "export": "NEXT_DIST_DIR=.next-export next build && rm -rf out && mv .next-export out"
   },
   "dependencies": {
-    "next": "14.2.15",
+    "next": "^16.4.6",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },

@@ -12,9 +12,17 @@ const display = Barlow_Condensed({
 const brand = Roboto({ subsets: ["latin"], weight: ["900"], style: ["italic"], variable: "--font-brand" });
 
 export const metadata = {
-  title: "Yashana Polymers | PC, ABS & PBT Engineering Polymers — Delhi, India",
+  title: "Best Engineering Polymer Supplier in Delhi | Yashana Polymers",
   description:
-    "Yashana Polymers manufactures and supplies premium PC, ABS and PBT engineering polymers. ISO 9001 & 14001 certified, RoHS compliant, batch-coded 25 kg packing.",
+    "Yashana Polymers is an ISO-certified engineering polymer supplier in Delhi. Buy PC, ABS and PBT granules in batch-coded 25 kg bags. Get a quote.",
+  keywords: [
+    "Polycarbonate Granules Supplier",
+    "Pc Granules Supplier",
+    "Abs Granules Supplier",
+    "PBT Granules Supplier",
+    "Engineering Polymer Supplier",
+    "PC DANA Supplier",
+  ],
     icons:{
       icon:"/logo.jpg"
     },
