@@ -26,7 +26,7 @@ export const metadata = {
     icons:{
       icon:"/logo.jpg"
     },
-  metadataBase: new URL("https://www.yashanapolymers.com"),
+  metadataBase: new URL("https://yashanapolymers.com"),
   alternates: { canonical: "/" },
   // Google Search Console ownership tag → <meta name="google-site-verification" ...>
   verification: { google: "j9SjuATGjsvKFncfjdpdOF1zl5ScTMgBrSTr3My6jqw" },

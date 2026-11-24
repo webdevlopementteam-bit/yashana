@@ -106,7 +106,7 @@ const FAQS = [
 const FAQ_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "@id": "https://www.yashanapolymers.com/#faq",
+  "@id": "https://yashanapolymers.com/#faq",
   mainEntity: FAQS.map((f) => ({
     "@type": "Question",
     name: f.q,
@@ -1328,7 +1328,7 @@ function Contact() {
     { icon: "phone", label: "Mobile", from: "#3B82F6", to: "#06B6D4", lines: [{ t: "+91 92179 60445", h: "tel:+919217960445" }] },
     { icon: "whatsapp", label: "WhatsApp", from: "#25D366", to: "#128C7E", lines: [{ t: "+91 92179 58610", h: "https://wa.me/919217958610", ext: true }] },
     { icon: "mail", label: "Email", from: "#F59E0B", to: "#F97316", lines: [{ t: "Yashanapolymers1326@gmail.com", wrapAt: "@", h: "mailto:Yashanapolymers1326@gmail.com" }] },
-    { icon: "globe", label: "Website", from: "#8B5CF6", to: "#6366F1", lines: [{ t: "www.yashanapolymers.com", h: "https://www.yashanapolymers.com" }] },
+    { icon: "globe", label: "Website", from: "#8B5CF6", to: "#6366F1", lines: [{ t: "yashanapolymers.com", h: "https://yashanapolymers.com" }] },
     { icon: "pin", label: "Address", from: "#EC4899", to: "#F43F5E", lines: [{ t: "Plot No. 30, Pocket C, Sector 2," }, { t: "Bawana DSIIDC Industrial Area," }, { t: "Delhi - 110039" }] },
   ];
 
@@ -1483,7 +1483,7 @@ function Footer() {
       <div className="h-1.5 bg-gradient-to-r from-[#161C6E] via-[#00B3DF] to-[#00A896]" />
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-sm sm:flex-row sm:px-6 lg:px-8">
         <p>© {new Date().getFullYear()} Yashana Polymers. All rights reserved.</p>
-        <p>www.yashanapolymers.com</p>
+        <p>yashanapolymers.com</p>
       </div>
     </footer>
   );
